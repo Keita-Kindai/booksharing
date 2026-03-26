@@ -21,7 +21,7 @@ app.mount('/uploads', StaticFiles(directory="uploads"), name="uploads")
 # https://qiita.com/higakin/items/fabe6a23d564b20ad558　を参照
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Viteのデフォルトポート
+    allow_origins=["http://localhost:5173", "http://localhost:5174",],  # Viteのデフォルトポート
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
