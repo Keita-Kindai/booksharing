@@ -57,7 +57,7 @@ uvicorn main:app --reload --port 9000
 
 ### フロントエンド
 ```bash
-cd frontend
+cd book-sharing
 npm install
 npm run dev
 ```

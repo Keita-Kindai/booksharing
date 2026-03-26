@@ -1,5 +1,49 @@
+# =========================
+# Node (Frontend)
+# =========================
+node_modules/
+dist/
+build/
 .env
-*.db
+.env.local
+.env.*.local
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+# Python (Backend)
+# =========================
 __pycache__/
-uploads/*
-!uploads/.gitkeep
+*.py[cod]
+*.pyo
+*.pyd
+
+# virtual env
+venv/
+env/
+myenv/
+.venv/
+
+# database
+*.db
+*.sqlite3
+
+# env files
+.env
+
+# =========================
+# OS / Editor
+# =========================
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# =========================
+# Misc
+# =========================
+*.log
