@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, type ChangeEvent, type DragEvent } from 'react'
 import { useAuth } from '../context/AuthContext'
 
 type Props = {
@@ -31,14 +31,14 @@ export function PostPage({ onSuccess }: Props) {
         setPreview(URL.createObjectURL(file))
     }
 
-    const handleFileDrop = (e) => {
+    const handleFileDrop = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault()
         setIsDragging(false)
         const file = e.dataTransfer.files[0]
         if (file) applyImage(file)
     }
 
-    const handleFileChange = (e) => {
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
         if (file) applyImage(file)
     }
@@ -97,7 +97,7 @@ export function PostPage({ onSuccess }: Props) {
     }
 
     return (
-        <div className="max-w-2xl mx-auto px-4 py-8 h-200">
+        <div className="max-w-2xl mx-auto px-4 pb-8 pt-14 sm:px-8">
             <h1 className="text-xl font-medium mb-6">本の感想を投稿する</h1>
 
             {/* タイトル名 */}

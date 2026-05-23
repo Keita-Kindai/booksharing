@@ -11,7 +11,7 @@ export function LoginPage() {
     
     const handleLogin = async () => {
         try {
-            const res = await fetch('http://127.0.0.1:9000/user/login', {
+            const res = await fetch('http://127.0.0.1:9000/users/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
                 body: JSON.stringify({email, password})

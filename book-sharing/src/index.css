@@ -61,3 +61,28 @@ h2 {
 p {
   margin: 0;
 }
+
+.post-modal-scroll {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #64748b #0f172a;
+}
+
+.post-modal-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.post-modal-scroll::-webkit-scrollbar-track {
+  background: #0f172a;
+  border-radius: 999px;
+}
+
+.post-modal-scroll::-webkit-scrollbar-thumb {
+  background: #64748b;
+  border: 2px solid #0f172a;
+  border-radius: 999px;
+}
+
+.post-modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

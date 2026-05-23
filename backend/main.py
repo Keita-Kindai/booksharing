@@ -66,7 +66,7 @@ def register_user(user: User):
 
 # ログインの確認から認証までを行う
 # 認証の処理はauth.pyのcreate_access_tokenに行わせている。
-@app.post('/user/login')
+@app.post('/users/login')
 def login_user(request: LoginRequest):
     conn = get_db()
     cur  = conn.cursor()

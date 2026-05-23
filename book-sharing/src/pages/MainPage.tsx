@@ -178,13 +178,15 @@ export function MainPage({ myBookUsers, onMyBooksConsumed }: Props) {
 
         { isPostOpen && (
                 <div
-                className="fixed inset-0 bg-[black]/50  z-40 flex items-center justify-center"
+                className="fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto bg-gray-950/75 px-4 pb-6 pt-28 backdrop-blur-sm sm:pt-32"
                 onClick={e => { if (e.target === e.currentTarget) setIsPostOpen(false) }}
                 >
-                    <div className="bg-gray-900 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative">
+                    <div className="relative h-[calc(100vh-12rem)] max-h-[720px] w-full max-w-2xl overflow-y-auto rounded-2xl border border-slate-700/80 bg-slate-950 shadow-2xl shadow-black/60">
                         <button
+                            type="button"
+                            aria-label="閉じる"
                             onClick={() => setIsPostOpen(false)}
-                            className="absolute top-4 right-4 text-gray-400 hover:text-white text-xl z-50"
+                            className="absolute right-4 top-4 z-50 flex h-9 w-9 items-center justify-center rounded-full bg-gray-900 text-lg leading-none text-gray-300 shadow hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-400"
                         >
                             ✕
                         </button>
