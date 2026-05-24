@@ -111,6 +111,7 @@ Vercelの Project Settings > Environment Variables に以下を追加してく�
 | `VITE_API_URL` | デプロイ済みバックエンドのURL（例: `https://api.example.com`） |
 
 バックエンド側のCORS設定には、Vercelで発行されたフロントエンドURLを許可する必要があります。
+このリポジトリのフロントエンドは `https://booksharing-one.vercel.app` にデプロイ済みです。
 
 ## Renderへのデプロイ
 
@@ -130,7 +131,7 @@ Renderの Environment に以下を追加してください。
 | `SECRET_KEY` | `openssl rand -hex 32` などで生成した秘密値 |
 | `ALGORITHM` | `HS256` |
 | `ACCESS_TOKEN_EXPIRE_MINUTES` | `30` など |
-| `ALLOWED_ORIGINS` | VercelのフロントエンドURL（例: `https://your-app.vercel.app`） |
+| `ALLOWED_ORIGINS` | VercelのフロントエンドURL（例: `https://booksharing-one.vercel.app`） |
 
 `ALLOWED_ORIGINS` はカンマ区切りで複数指定できます。ローカル開発では `.env` の `http://localhost:5173,http://localhost:5174` を使えます。
 
