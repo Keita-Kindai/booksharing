@@ -136,7 +136,7 @@ export function MainPage({ myBookUsers, onMyBooksConsumed }: Props) {
                     posts.map(post => (
                         <Book
                             key={post.id}
-                            image={post.image_path ? apiUrl(post.image_path) : '/public/images/user.png'}
+                            image={post.image_path ? apiUrl(post.image_path) : '/images/user.png'}
                             summary_title={post.post_title}
                             book_title={post.book_name}
                             author={post.author}
@@ -163,7 +163,7 @@ export function MainPage({ myBookUsers, onMyBooksConsumed }: Props) {
                     posts.map(post => (
                         <Book
                             key={post.id}
-                            image={post.image_path ? apiUrl(post.image_path) : '/public/images/user.png'}
+                            image={post.image_path ? apiUrl(post.image_path) : '/images/user.png'}
                             summary_title={post.post_title}
                             book_title={post.book_name}
                             author={post.author}

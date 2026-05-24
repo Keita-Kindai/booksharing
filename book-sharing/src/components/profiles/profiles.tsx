@@ -10,7 +10,7 @@ export function Profile({ onMyBooks }: { onMyBooks: () => void }) {
     return (
         <div className={`relative cursor-pointer ${isLoggedIn?'block':'hidden'}`} onClick={() => setClicked(!clicked)}>
             <div className='rounded-full bg-blue-400 w-10 h-10 flex mr-4 items-center justify-center overflow-hidden'>
-                <img src="/public/images/user.png" alt="" className='w-10 h-10 object-cover'/>
+                <img src="/images/user.png" alt="" className='w-10 h-10 object-cover'/>
             </div>
             <div className={`bg-blue-950 z-10 absolute right-0 top-12 px-3.5 text-center py-1.5 transition-opacity duration-200 
                 border-[1.5px]

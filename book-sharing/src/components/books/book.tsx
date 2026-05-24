@@ -13,7 +13,7 @@ type Book = {
     rating?: number
 }
 // write props
-export function Book({image = "/public/images/user.png",
+export function Book({image = "/images/user.png",
                       summary_title = "これが面白い！！", 
                       book_title = "TestTitle", 
                       author = "TestAuthor", 

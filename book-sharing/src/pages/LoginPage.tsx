@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { apiUrl } from '../lib/api'
 
@@ -55,7 +55,16 @@ export function LoginPage() {
           
           clear()
       } catch (e) {
-          setError('ユーザー名が既に使われている可能性があります。ほかのユーザー名をお試しください。')
+          setError('通信に失敗しました。時間をおいてもう一度お試しください。')
+      }
+    }
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      if (isLogin) {
+        handleLogin()
+      } else {
+        handleSignUp()
       }
     }
 
@@ -68,12 +77,14 @@ export function LoginPage() {
     }
 
     return (
-    <div className='flex flex-col items-center justify-center gap-4 mt-20'>
+    <form className='flex flex-col items-center justify-center gap-4 mt-20' onSubmit={handleSubmit}>
       <h1 className='text-2xl font-bold'>{isLogin ? 'ログイン' : 'サインアップ'}</h1>
       {error && <p className='text-red-400'>{error}</p>}
 
       {!isLogin && (
         <input type="text" 
+               name='username'
+               autoComplete='username'
                placeholder='ユーザー名'
                className='border p-2 rounded w-72'
                value={name}
@@ -83,6 +94,8 @@ export function LoginPage() {
 
       <input
         type='email'
+        name='email'
+        autoComplete='email'
         placeholder='メールアドレス'
         className='border p-2 rounded w-72'
         value={email}
@@ -90,14 +103,16 @@ export function LoginPage() {
       />
       <input
         type='password'
+        name='password'
+        autoComplete={isLogin ? 'current-password' : 'new-password'}
         placeholder='パスワード'
         className='border p-2 rounded w-72'
         value={password}
         onChange={e => setPassword(e.target.value)}
       />
       <button
+        type='submit'
         className='bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 hover:cursor-pointer'
-        onClick={isLogin ? handleLogin : handleSignUp}
       >
         {isLogin ? 'ログイン' : '登録する'}
       </button>
@@ -107,7 +122,7 @@ export function LoginPage() {
       >
           {isLogin ? 'アカウントを作成する →' : 'ログインに戻る →'}
       </p>
-    </div>
+    </form>
   )
 
 }

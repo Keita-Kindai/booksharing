@@ -108,7 +108,7 @@ Vercelの Project Settings > Environment Variables に以下を追加してく�
 
 | Name | Value |
 |------|-------|
-| `VITE_API_URL` | デプロイ済みバックエンドのURL（例: `https://api.example.com`） |
+| `VITE_API_URL` | デプロイ済みバックエンドのURL（例: `https://booksharing-u9pm.onrender.com`） |
 
 バックエンド側のCORS設定には、Vercelで発行されたフロントエンドURLを許可する必要があります。
 このリポジトリのフロントエンドは `https://booksharing-one.vercel.app` にデプロイ済みです。
@@ -137,7 +137,7 @@ Renderの Environment に以下を追加してください。
 
 SQLiteは現状維持です。ただしRenderの通常ディスクはデプロイや再起動で永続化されない場合があります。本番運用で投稿やユーザー情報を保持したい場合は、Render Diskの利用やPostgreSQLなどの永続DBへの移行を検討してください。
 
-フロントエンドをVercelに置く場合、Vercel側の `VITE_API_URL` にはRenderで発行されたバックエンドURLを設定してください。
+フロントエンドをVercelに置く場合、Vercel側の `VITE_API_URL` にはRenderで発行されたバックエンドURLを設定してください。このリポジトリでは `https://booksharing-u9pm.onrender.com` を指定します。
 
 ## API一覧
 
