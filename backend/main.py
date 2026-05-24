@@ -37,6 +37,9 @@ def get_allowed_origins() -> list[str]:
     ]
     return list(dict.fromkeys(origins))
 
+def get_allowed_origin_regex() -> str | None:
+    return os.getenv("ALLOWED_ORIGIN_REGEX", "").strip() or None
+
 app = FastAPI()
 
 # 静的ファイルをマウントして、画像を保持する。
@@ -49,6 +52,7 @@ app.mount('/uploads', StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=get_allowed_origins(),
+    allow_origin_regex=get_allowed_origin_regex(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
