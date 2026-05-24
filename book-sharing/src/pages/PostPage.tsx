@@ -1,5 +1,6 @@
 import { useState, useRef, type ChangeEvent, type DragEvent } from 'react'
 import { useAuth } from '../context/AuthContext'
+import { apiUrl } from '../lib/api'
 
 type Props = {
     onSuccess?: () => void;
@@ -67,7 +68,7 @@ export function PostPage({ onSuccess }: Props) {
                 formData.append('image', image)
             }
 
-            const res = await fetch('http://127.0.0.1:9000/posts', {
+            const res = await fetch(apiUrl('/posts'), {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` },
                 body: formData,

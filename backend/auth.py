@@ -5,6 +5,7 @@ https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
 """
 
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from typing import Annotated
 import jwt
 from jwt.exceptions import InvalidTokenError
@@ -14,9 +15,13 @@ from pwdlib import PasswordHash
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR / ".env")
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', '').strip()
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY environment variable is required")
+
 ALGORITHM = os.getenv('ALGORITHM', 'HS256')
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
 

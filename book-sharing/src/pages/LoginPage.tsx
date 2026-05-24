@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
+import { apiUrl } from '../lib/api'
 
 export function LoginPage() {
     const { login, setUsername } = useAuth()
@@ -11,7 +12,7 @@ export function LoginPage() {
     
     const handleLogin = async () => {
         try {
-            const res = await fetch('http://127.0.0.1:9000/users/login', {
+            const res = await fetch(apiUrl('/users/login'), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
                 body: JSON.stringify({email, password})
@@ -25,7 +26,7 @@ export function LoginPage() {
             const data = await res.json()
             login(data.access_token)
 
-            const meRes = await fetch('http://127.0.0.1:9000/users/me', {
+            const meRes = await fetch(apiUrl('/users/me'), {
                 headers: { 'Authorization': `Bearer ${data.access_token}` }
             })
             if (meRes.ok) {
@@ -41,7 +42,7 @@ export function LoginPage() {
 
     const handleSignUp = async () => {
       try {
-          const res = await fetch("http://127.0.0.1:9000/users/register",{
+          const res = await fetch(apiUrl('/users/register'),{
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({name, email, password})

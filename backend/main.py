@@ -1,5 +1,8 @@
 from fastapi import FastAPI, Depends, HTTPException, Form, File, UploadFile
 import sqlite3
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 from database import init_db, get_db
 from pydantic import BaseModel
 from auth import get_password_hash, verify_password, create_access_token, decode_token
@@ -10,10 +13,34 @@ from fastapi.staticfiles import StaticFiles
 
 from fastapi.middleware.cors import CORSMiddleware
 
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR / ".env")
+
+UPLOADS_DIR = BASE_DIR / "uploads"
+UPLOADS_DIR.mkdir(exist_ok=True)
+
+def get_allowed_origins() -> list[str]:
+    local_origins = [
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://127.0.0.1:5173",
+        "http://127.0.0.1:5174",
+    ]
+    configured_origins = [
+        os.getenv("FRONTEND_URL", ""),
+        *os.getenv("ALLOWED_ORIGINS", "").split(","),
+    ]
+    origins = [
+        origin.strip().rstrip("/")
+        for origin in [*local_origins, *configured_origins]
+        if origin.strip()
+    ]
+    return list(dict.fromkeys(origins))
+
 app = FastAPI()
 
 # 静的ファイルをマウントして、画像を保持する。
-app.mount('/uploads', StaticFiles(directory="uploads"), name="uploads")
+app.mount('/uploads', StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
 
 # CORS(Cross-Origin Resource shareing)エラーが発生してしまうため、
 # こっちでlocahost:5173（viteのポート）を指定して
@@ -21,7 +48,7 @@ app.mount('/uploads', StaticFiles(directory="uploads"), name="uploads")
 # https://qiita.com/higakin/items/fabe6a23d564b20ad558　を参照
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:5174",],  # Viteのデフォルトポート
+    allow_origins=get_allowed_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -200,7 +227,7 @@ async def post_summary(
         if image:
             contents = await image.read()
             image_path = f"uploads/{image.filename}"
-            with open(image_path, "wb") as f:
+            with open(UPLOADS_DIR / image.filename, "wb") as f:
                 f.write(contents)
 
         cur.execute('''
@@ -228,4 +255,3 @@ def get_me(user_id: str = Depends(decode_token)):
         return {"id": row[0], "username": row[1], "email": row[2], "bio":row[3]}
     finally:
         conn.close()
-

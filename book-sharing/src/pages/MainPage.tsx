@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Book } from "../components/books/book";
 import { PostPage } from './PostPage'
 import { useDebounce } from "use-debounce";
+import { apiUrl } from "../lib/api";
 
 // 投稿が持っているべき情報です。
 type Post = {
@@ -72,7 +73,7 @@ export function MainPage({ myBookUsers, onMyBooksConsumed }: Props) {
     // 投稿全体をフェッチ
     const fetchPosts = async () => {
         try {
-            const res = await fetch('http://127.0.0.1:9000/posts',{
+            const res = await fetch(apiUrl('/posts'),{
                 method: 'GET',
             })
            if (res.ok) setPosts(await res.json())
@@ -84,7 +85,7 @@ export function MainPage({ myBookUsers, onMyBooksConsumed }: Props) {
     // タイトルと部分一致するものだけをフェッチ
     const fetchTitlePosts = async  () => {
         try {
-            const res = await fetch(`http://127.0.0.1:9000/posts/search/?title=${titleWords}`,{
+            const res = await fetch(apiUrl('/posts/search/', { title: titleWords }),{
                 method: 'GET',
             })
             if (res.ok) setPosts(await res.json())
@@ -96,7 +97,7 @@ export function MainPage({ myBookUsers, onMyBooksConsumed }: Props) {
     // ユーザー名と一致するものだけをフェッチ
     const fetchUser = async  () => {
         try {
-            const res = await fetch(`http://127.0.0.1:9000/users/search?user_name=${userName}`,{
+            const res = await fetch(apiUrl('/users/search', { user_name: userName }),{
                 method: 'GET',
             })
             if (res.ok) setPosts(await res.json())
@@ -135,7 +136,7 @@ export function MainPage({ myBookUsers, onMyBooksConsumed }: Props) {
                     posts.map(post => (
                         <Book
                             key={post.id}
-                            image={post.image_path ? `http://127.0.0.1:9000/${post.image_path}` : '/public/images/user.png'}
+                            image={post.image_path ? apiUrl(post.image_path) : '/public/images/user.png'}
                             summary_title={post.post_title}
                             book_title={post.book_name}
                             author={post.author}
@@ -162,7 +163,7 @@ export function MainPage({ myBookUsers, onMyBooksConsumed }: Props) {
                     posts.map(post => (
                         <Book
                             key={post.id}
-                            image={post.image_path ? `http://127.0.0.1:9000/${post.image_path}` : '/public/images/user.png'}
+                            image={post.image_path ? apiUrl(post.image_path) : '/public/images/user.png'}
                             summary_title={post.post_title}
                             book_title={post.book_name}
                             author={post.author}
